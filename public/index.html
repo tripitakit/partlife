@@ -12,19 +12,19 @@
     }
 
     body {
-      background-color: black;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        repeating-linear-gradient(
+          45deg,
+          #0a0a0a 0px,
+          #0a0a0a 10px,
+          #1a1a1a 10px,
+          #1a1a1a 20px
+        );
       color: white;
       font-family: Arial, sans-serif;
       padding: 20px;
-    }
-
-    .header {
-      background-color: #d4edda;
-      color: #155724;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-      border-radius: 8px;
+      min-height: 100vh;
     }
 
     .main-container {
@@ -46,26 +46,29 @@
     }
 
     .box {
-      background-color: white;
-      color: black;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    .box-dark {
-      background-color: #2d2d2d;
+      background-color: rgba(45, 45, 45, 0.85);
       color: white;
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    .box-dark {
+      background-color: rgba(45, 45, 45, 0.85);
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      backdrop-filter: blur(10px);
     }
 
     .box-title {
       font-size: 0.9rem;
       font-weight: bold;
       margin-bottom: 15px;
-      color: #0066cc;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     }
 
     .box-dark .box-title {
@@ -332,7 +335,6 @@
         <!-- Control Buttons -->
         <div class="buttons">
           <button id="randomize-rules" class="btn-warning">Randomize Rules</button>
-          <button id="reset-simulation" class="btn-danger">Reset Simulation</button>
           <button id="pause-simulation" class="btn-info">Pause</button>
         </div>
 
@@ -698,14 +700,10 @@
     initializeControls(); // Update UI to show new values
   });
 
-  document.getElementById('reset-simulation').addEventListener('click', function() {
-    location.reload();
-  });
-
   document.getElementById('pause-simulation').addEventListener('click', function() {
     isPaused = !isPaused;
     this.textContent = isPaused ? 'Resume' : 'Pause';
-    this.className = isPaused ? 'button is-success is-small' : 'button is-info is-small';
+    this.className = isPaused ? 'btn-info' : 'btn-info';
   });
 
   // Initialize controls after DOM is ready
