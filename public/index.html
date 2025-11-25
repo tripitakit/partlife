@@ -108,6 +108,13 @@
     .particle-rules-box {
       max-width: 100%;
     }
+
+    /* Quantic controls styling */
+    .quantic-label {
+      color: #ffffff !important;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
   </style>
     <title>Particle Life</title>
   </head>
@@ -128,11 +135,12 @@
       </div>
     </div>
 
-    <!-- Main Content: Particle Rules, Canvas, and Other Controls -->
+    <!-- Main Content: All Controls Left, Canvas Right -->
     <div class="container mt-4">
       <div class="columns">
-        <!-- Particle Interaction Rules - Left Side -->
-        <div class="column is-narrow">
+        <!-- All Controls - Left Side -->
+        <div class="column is-one-third">
+          <!-- Particle Interaction Rules -->
           <div class="box has-background-white particle-rules-box">
             <h4 class="subtitle is-7 has-text-info-dark">Particle Interaction Rules</h4>
 
@@ -268,62 +276,57 @@
               </div>
             </div>
           </div>
+
+          <!-- Quantic Controls -->
+          <div class="box has-background-dark mt-3">
+            <h4 class="subtitle is-7 quantic-label">Quantic Controls</h4>
+            <div class="field">
+              <label class="label is-small quantic-label">Schwarzschild Radius</label>
+              <div class="control">
+                <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
+                <span id="blackhole-radius-value" class="quantic-label">21</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label is-small quantic-label">Gravitational Constant</label>
+              <div class="control">
+                <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
+                <span id="blackhole-force-value" class="quantic-label">0.0015</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label is-small quantic-label">Repulsion Force</label>
+              <div class="control">
+                <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
+                <span id="repulsion-force-value" class="quantic-label">0.2</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label is-small quantic-label">Speed Factor</label>
+              <div class="control">
+                <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
+                <span id="speed-factor-value" class="quantic-label">0.5</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label is-small quantic-label">
+                <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
+              </label>
+            </div>
+          </div>
         </div>
 
-        <!-- Canvas - Center -->
+        <!-- Canvas and Buttons - Right Side -->
         <div class="column">
           <div class="has-text-centered">
             <canvas id="life" tabindex="-1" width="630px" height="630px"></canvas>
           </div>
-        </div>
 
-        <!-- Other Controls - Right Side -->
-        <div class="column is-narrow">
-          <div class="box has-background-info-light">
-            <!-- Black Hole Controls -->
-            <div class="box has-background-white">
-              <h4 class="subtitle is-7 has-text-info-dark">Quantic Controls</h4>
-              <div class="field">
-                <label class="label is-small">Schwarzschild Radius</label>
-                <div class="control">
-                  <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
-                  <span id="blackhole-radius-value">21</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small">Gravitational Constant</label>
-                <div class="control">
-                  <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
-                  <span id="blackhole-force-value">0.0015</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small">Repulsion Force</label>
-                <div class="control">
-                  <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
-                  <span id="repulsion-force-value">0.2</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small">Speed Factor</label>
-                <div class="control">
-                  <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
-                  <span id="speed-factor-value">0.5</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small">
-                  <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
-                </label>
-              </div>
-            </div>
-
-            <!-- Control Buttons -->
-            <div class="has-text-centered mt-3">
-              <button id="randomize-rules" class="button is-warning is-small">Randomize Rules</button>
-              <button id="reset-simulation" class="button is-danger is-small">Reset Simulation</button>
-              <button id="pause-simulation" class="button is-info is-small">Pause</button>
-            </div>
+          <!-- Control Buttons -->
+          <div class="has-text-centered mt-3">
+            <button id="randomize-rules" class="button is-warning is-small">Randomize Rules</button>
+            <button id="reset-simulation" class="button is-danger is-small">Reset Simulation</button>
+            <button id="pause-simulation" class="button is-info is-small">Pause</button>
           </div>
         </div>
       </div>
