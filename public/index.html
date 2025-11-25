@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+    .container {
+      display: flex;
+      justify-content: center;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    canvas {
+      border-width: 6px;
+      border-radius: 24px;
+      border-style: solid;
+      border-color: rgb(108, 99, 10);
+    }
+
+    .slider {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .field {
+      margin-bottom: 0.3rem;
+    }
+
+    .field .control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field span {
+      min-width: 35px;
+      text-align: right;
+      font-weight: bold;
+      color: #363636;
+      font-size: 0.7rem;
+    }
+
+    .field .label {
+      margin-bottom: 0.15rem;
+      font-size: 0.75rem;
+    }
+
+    .box {
+      padding: 0.75rem;
+    }
+
+    .button.is-small {
+      font-size: 0.7rem;
+      margin: 0.2rem;
+      padding: 0.25rem 0.5rem;
+      min-width: 80px;
+    }
+
+    .subtitle.is-7 {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .slider {
+      height: 4px;
+      margin: 5px 0;
+    }
+
+    .tag.is-small {
+      font-size: 0.65rem;
+      height: 1.2em;
+      padding-left: 0.4em;
+      padding-right: 0.4em;
+    }
+  </style>
+    <title>Particle Life</title>
+  </head>
+
+  <body style="background-color: black;">
+
+    <!-- Header -->
+    <div class="hero">
+      <div class="hero-body" >
+        <div class="container has-text-centered box has-background-success-light">
+          <h1 class="title is-3 has-text-info-dark">
+            Particle Life
+          </h1>
+          <h2 class="title is-6 has-text-info-dark">
+             I love fools' experiments, I am always making them. (Charles R. Darwin)
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content: Controls and Canvas Side by Side -->
+    <div class="container mt-4">
+      <div class="columns">
+        <!-- Controls Panel -->
+        <div class="column is-half">
+
+          <div class="box has-background-info-light">
+            <!-- Particle Rules -->
+            <div class="box has-background-white">
+              <h4 class="subtitle is-7 has-text-info-dark">Particle Interaction Rules</h4>
+              <div class="columns">
+                <div class="column">
+                  <h5 class="subtitle is-7"><span class="tag is-danger is-small">Red</span></h5>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-danger is-small">Red</span></label>
+                    <div class="control">
+                      <input id="rule-0-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-0-0-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-info is-small">Blue</span></label>
+                    <div class="control">
+                      <input id="rule-0-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-0-1-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-warning is-small">Yellow</span></label>
+                    <div class="control">
+                      <input id="rule-0-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-0-2-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-success is-small">Green</span></label>
+                    <div class="control">
+                      <input id="rule-0-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-0-3-value">0</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <h5 class="subtitle is-7"><span class="tag is-info is-small">Blue</span></h5>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-danger is-small">Red</span></label>
+                    <div class="control">
+                      <input id="rule-1-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-1-0-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-info is-small">Blue</span></label>
+                    <div class="control">
+                      <input id="rule-1-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-1-1-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-warning is-small">Yellow</span></label>
+                    <div class="control">
+                      <input id="rule-1-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-1-2-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-success is-small">Green</span></label>
+                    <div class="control">
+                      <input id="rule-1-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-1-3-value">0</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <h5 class="subtitle is-7"><span class="tag is-warning is-small">Yellow</span></h5>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-danger is-small">Red</span></label>
+                    <div class="control">
+                      <input id="rule-2-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-2-0-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-info is-small">Blue</span></label>
+                    <div class="control">
+                      <input id="rule-2-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-2-1-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-warning is-small">Yellow</span></label>
+                    <div class="control">
+                      <input id="rule-2-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-2-2-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-success is-small">Green</span></label>
+                    <div class="control">
+                      <input id="rule-2-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-2-3-value">0</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <h5 class="subtitle is-7"><span class="tag is-success is-small">Green</span></h5>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-danger is-small">Red</span></label>
+                    <div class="control">
+                      <input id="rule-3-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-3-0-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-info is-small">Blue</span></label>
+                    <div class="control">
+                      <input id="rule-3-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-3-1-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-warning is-small">Yellow</span></label>
+                    <div class="control">
+                      <input id="rule-3-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-3-2-value">0</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small"> <span class="tag is-success is-small">Green</span></label>
+                    <div class="control">
+                      <input id="rule-3-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                      <span id="rule-3-3-value">0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Black Hole Controls -->
+            <div class="box has-background-white">
+              <h4 class="subtitle is-7 has-text-info-dark">Quantic Controls</h4>
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label is-small">Schwarzschild Radius</label>
+                    <div class="control">
+                      <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
+                      <span id="blackhole-radius-value">21</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small">Gravitational Constant</label>
+                    <div class="control">
+                      <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
+                      <span id="blackhole-force-value">0.0015</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label is-small">Repulsion Force</label>
+                    <div class="control">
+                      <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
+                      <span id="repulsion-force-value">0.2</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small">Speed Factor</label>
+                    <div class="control">
+                      <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
+                      <span id="speed-factor-value">0.5</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label is-small">
+                      <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="has-text-centered">
+              <button id="randomize-rules" class="button is-warning is-small">Randomize Rules</button>
+              <button id="reset-simulation" class="button is-danger is-small">Reset Simulation</button>
+              <button id="pause-simulation" class="button is-info is-small">Pause</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Canvas -->
+        <div class="column">
+          <div class="has-text-centered">
+            <canvas id="life" tabindex="-1" width="630px" height="630px"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
+
+
+<script>
+
+  const canvas = document.getElementById("life");
+  const m = canvas.getContext("2d");
+
+  const totNumOfParticles = 400;
+  const numOfElements = 4;
+  let speedK = totNumOfParticles / (2000 + int(rnd(2000)))
+  const ruleRadius =2400 + int(rnd(3600))
+  const repulsionRadius = 9 + int(rnd(120))
+  let repulsionFx = rnd(0.4)
+  const size = 4;
+  const bgcolor = "#000000"
+
+  const width = 630 //px
+  const height = 630 //px
+
+  let blackhole_x = int(rnd(width/2)) + width/4
+  let blackhole_y = int(rnd(height/2)) + height/4
+  let wandering_blackhole = false
+  let blackhole_vx = 0
+  let blackhole_vy = 0
+  let blackhole_schwarzschild_radius = 21
+  let blackhole_singularity_fx = -(rnd(0.002) + 0.0005)
+  let isPaused = false;
+
+  const atoms = [];
+  let rules = makeRules(numOfElements)
+
+  function draw(x, y, c, s) {
+    m.fillStyle = c;
+    m.fillRect(x, y, s, s);
+  };
+
+  function drawBlackHole(x, y, c, r) {
+    m.fillStyle = c;
+    m.beginPath();
+    m.arc(x, y, r, 0, 2 * Math.PI);
+    m.fill();
+  };
+
+  function atom(x, y, c, f) {
+    return { x: x, y: y, vx: 0, vy: 0, color: c, fenotipo: f };
+  };
+
+  function randomX() { return rnd(canvas.height) };
+
+  function randomY() { return rnd(canvas.width) };
+
+  function rnd(max) { return Math.random() * max }
+
+  function int(f) { return Math.floor(f) + 1 }
+
+  function create(number, color, fenotipo) {
+    for (let i = 0; i < number; i++) {
+      atoms.push(atom(randomY(), randomX(), color, fenotipo));
+    }
+  };
+
+  function choose(a, b) {
+    // return random a or b
+    if (rnd(1) > 0.5) {
+      return a
+    } else {
+      return b
+    }
+  }
+
+
+	function choosePrimaryColor(index) {
+		const primaryColors = ['red', 'blue', 'yellow', 'green'];
+		return primaryColors[index];
+  }
+
+  function makeRules(nofelems) {
+    var _rules = {}
+    for (var e = 0; e < nofelems; e++) {
+      _rules[e] = {}
+      for (var k = 0; k < nofelems; k++) {
+        _rules[e][k] = rnd(3) - 1.5
+      }
+    }
+    return _rules;
+  }
+
+  function applyRules() {
+    // Update black hole position if wandering is enabled
+    if (wandering_blackhole) {
+      // Brownian motion for black hole
+      blackhole_vx += (rnd(2) - 1) * 0.5; // Random acceleration
+      blackhole_vy += (rnd(2) - 1) * 0.5;
+
+      // Apply friction to prevent excessive speed
+      blackhole_vx *= 0.95;
+      blackhole_vy *= 0.95;
+
+      // Update position
+      blackhole_x += blackhole_vx;
+      blackhole_y += blackhole_vy;
+
+      // Keep black hole within canvas bounds
+      if (blackhole_x <= 50) {
+        blackhole_x = 50;
+        blackhole_vx *= -0.5;
+      }
+      if (blackhole_x >= width - 50) {
+        blackhole_x = width - 50;
+        blackhole_vx *= -0.5;
+      }
+      if (blackhole_y <= 50) {
+        blackhole_y = 50;
+        blackhole_vy *= -0.5;
+      }
+      if (blackhole_y >= height - 50) {
+        blackhole_y = height - 50;
+        blackhole_vy *= -0.5;
+      }
+    }
+
+    for (let i = 0; i < atoms.length; i++) {
+
+      let fx = 0;
+      let fy = 0;
+
+      const a = atoms[i];
+
+      for (let j = 0; j < atoms.length; j++) {
+
+        if (j !== i) {
+          const b = atoms[j];
+          const g = rules[a.color][b.color];
+
+          if (g !== undefined) {
+            // Toroidal distance calculation - shortest path considering wraparound
+            let dx = a.x - b.x;
+            let dy = a.y - b.y;
+
+            // Find shortest distance across toroidal surface
+            if (Math.abs(dx) > canvas.width / 2) {
+              dx = dx > 0 ? dx - canvas.width : dx + canvas.width;
+            }
+            if (Math.abs(dy) > canvas.height / 2) {
+              dy = dy > 0 ? dy - canvas.height : dy + canvas.height;
+            }
+
+            if (dx !== 0 || dy !== 0) {
+              const d = dx * dx + dy * dy;
+
+              if (d <= ruleRadius) {
+                const F = g / Math.sqrt(d);
+                fx += F * dx;
+                fy += F * dy;
+              }
+
+              if (d <= repulsionRadius) {
+                const F = g / Math.sqrt(d);
+                fx += repulsionFx * dx;
+                fy += repulsionFx * dy;
+              }
+
+              // apply blackhole force on atom in a - toroidal distance
+              let dx_bh = a.x - blackhole_x;
+              let dy_bh = a.y - blackhole_y;
+
+              // Find shortest distance to black hole across toroidal surface
+              if (Math.abs(dx_bh) > canvas.width / 2) {
+                dx_bh = dx_bh > 0 ? dx_bh - canvas.width : dx_bh + canvas.width;
+              }
+              if (Math.abs(dy_bh) > canvas.height / 2) {
+                dy_bh = dy_bh > 0 ? dy_bh - canvas.height : dy_bh + canvas.height;
+              }
+              const d_bh = dx_bh * dx_bh + dy_bh * dy_bh;
+              if (d_bh >= blackhole_schwarzschild_radius*blackhole_schwarzschild_radius) {
+                const F_bh = blackhole_singularity_fx / Math.sqrt(d_bh);
+                fx += F_bh * dx_bh;
+                fy += F_bh * dy_bh;
+              } else {
+                let side = int(rnd(4))
+                if (side == 1) {
+                  a.x = 0
+                  a.y = int(rnd(height))
+                } else if (side == 2) {
+                  a.x = width
+                  a.y = int(rnd(height))
+                } else if (side == 3) {
+                  a.x = int(rnd(width))
+                  a.y = 0
+                } else {
+                  a.x = int(rnd(width))
+                  a.y = height
+                }
+              }
+            }
+          }
+        }
+      }
+
+      a.vx = (a.vx + fx) * speedK;
+      a.vy = (a.vy + fy) * speedK;
+      a.x += a.vx;
+      a.y += a.vy;
+
+      // Toroidal wraparound - no walls, particles wrap around edges
+      if (a.x < 0) {
+        a.x = canvas.width + a.x;
+      }
+      if (a.x >= canvas.width) {
+        a.x = a.x - canvas.width;
+      }
+      if (a.y < 0) {
+        a.y = canvas.height + a.y;
+      }
+      if (a.y >= canvas.height) {
+        a.y = a.y - canvas.height;
+      }
+    };
+  }
+
+  // Initialize atoms
+  particlesForElemens = Math.floor(totNumOfParticles / numOfElements)
+  for (var i = 0; i < numOfElements; i++) {
+    create(particlesForElemens, i, choosePrimaryColor(i));
+  }
+
+
+  // Gameloop
+  function update() {
+    if (!isPaused) {
+      applyRules();
+    }
+    m.clearRect(0, 0, canvas.width, canvas.height);
+    draw(0, 0, bgcolor, canvas.width);
+    drawBlackHole(blackhole_x, blackhole_y, "#1a1a1a", blackhole_schwarzschild_radius)
+    for (i = 0; i < atoms.length; i += 1) {
+      draw(atoms[i].x, atoms[i].y, atoms[i].fenotipo, size);
+    }
+
+    requestAnimationFrame(update);
+  };
+  update();
+
+  // Initialize controls with current values
+  function initializeControls() {
+    // Initialize rule controls - now handling all 16 controls (4x4 matrix)
+    for (let i = 0; i < numOfElements; i++) {
+      for (let j = 0; j < numOfElements; j++) {
+        const controlId = `rule-${i}-${j}`;
+        const valueId = `rule-${i}-${j}-value`;
+        const slider = document.getElementById(controlId);
+        const valueSpan = document.getElementById(valueId);
+
+        if (slider && valueSpan) {
+          slider.value = rules[i][j];
+          valueSpan.textContent = rules[i][j].toFixed(2);
+
+          slider.addEventListener('input', function() {
+            rules[i][j] = parseFloat(this.value);
+            valueSpan.textContent = parseFloat(this.value).toFixed(2);
+          });
+        }
+      }
+    }
+
+    // Initialize black hole controls
+    const blackholeRadiusSlider = document.getElementById('blackhole-radius');
+    const blackholeRadiusValue = document.getElementById('blackhole-radius-value');
+    blackholeRadiusSlider.value = blackhole_schwarzschild_radius;
+    blackholeRadiusValue.textContent = blackhole_schwarzschild_radius;
+    blackholeRadiusSlider.addEventListener('input', function() {
+      blackhole_schwarzschild_radius = parseInt(this.value);
+      blackholeRadiusValue.textContent = this.value;
+    });
+
+    const blackholeForceSlider = document.getElementById('blackhole-force');
+    const blackholeForceValue = document.getElementById('blackhole-force-value');
+    blackholeForceSlider.value = Math.abs(blackhole_singularity_fx);
+    blackholeForceValue.textContent = Math.abs(blackhole_singularity_fx).toFixed(4);
+    blackholeForceSlider.addEventListener('input', function() {
+      blackhole_singularity_fx = -parseFloat(this.value);
+      blackholeForceValue.textContent = parseFloat(this.value).toFixed(4);
+    });
+
+    const repulsionForceSlider = document.getElementById('repulsion-force');
+    const repulsionForceValue = document.getElementById('repulsion-force-value');
+    repulsionForceSlider.value = repulsionFx;
+    repulsionForceValue.textContent = repulsionFx.toFixed(2);
+    repulsionForceSlider.addEventListener('input', function() {
+      repulsionFx = parseFloat(this.value);
+      repulsionForceValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    const speedFactorSlider = document.getElementById('speed-factor');
+    const speedFactorValue = document.getElementById('speed-factor-value');
+    speedFactorSlider.value = speedK;
+    speedFactorValue.textContent = speedK.toFixed(2);
+    speedFactorSlider.addEventListener('input', function() {
+      speedK = parseFloat(this.value);
+      speedFactorValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    // Initialize wandering black hole checkbox
+    const wanderingCheckbox = document.getElementById('wandering-blackhole');
+    wanderingCheckbox.addEventListener('change', function() {
+      wandering_blackhole = this.checked;
+      if (!this.checked) {
+        // Reset black hole velocity when disabled
+        blackhole_vx = 0;
+        blackhole_vy = 0;
+      }
+    });
+  }
+
+  // Control buttons
+  document.getElementById('randomize-rules').addEventListener('click', function() {
+    rules = makeRules(numOfElements);
+    initializeControls(); // Update UI to show new values
+  });
+
+  document.getElementById('reset-simulation').addEventListener('click', function() {
+    location.reload();
+  });
+
+  document.getElementById('pause-simulation').addEventListener('click', function() {
+    isPaused = !isPaused;
+    this.textContent = isPaused ? 'Resume' : 'Pause';
+    this.className = isPaused ? 'button is-success is-small' : 'button is-info is-small';
+  });
+
+  // Initialize controls after DOM is ready
+  initializeControls();
+
+
+</script>
