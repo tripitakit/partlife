@@ -4,328 +4,388 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
-    .container {
-      display: flex;
-      justify-content: center;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
     }
 
-    canvas {
-      border-width: 6px;
-      border-radius: 24px;
-      border-style: solid;
-      border-color: rgb(108, 99, 10);
+    .header {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      border-radius: 8px;
     }
 
-    .slider {
-      width: 100%;
-      margin: 10px 0;
+    .header h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
 
-    .field {
-      margin-bottom: 0.3rem;
+    .header h2 {
+      font-size: 1rem;
+      font-weight: normal;
     }
 
-    .field .control {
+    .main-container {
       display: flex;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .left-column {
+      flex: 0 0 300px;
+    }
+
+    .right-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-    }
-
-    .field span {
-      min-width: 35px;
-      text-align: right;
-      font-weight: bold;
-      color: #363636;
-      font-size: 0.7rem;
-    }
-
-    .field .label {
-      margin-bottom: 0.15rem;
-      font-size: 0.75rem;
     }
 
     .box {
-      padding: 0.75rem;
+      background-color: white;
+      color: black;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
     }
 
-    .button.is-small {
-      font-size: 0.7rem;
-      margin: 0.2rem;
-      padding: 0.25rem 0.5rem;
-      min-width: 80px;
+    .box-dark {
+      background-color: #2d2d2d;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
     }
 
-    .subtitle.is-7 {
-      font-size: 0.8rem;
-      margin-bottom: 0.5rem;
+    .box-title {
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #0066cc;
+    }
+
+    .box-dark .box-title {
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    .rules-section {
+      margin-bottom: 20px;
+    }
+
+    .rules-section-title {
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      margin-bottom: 8px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      margin-bottom: 3px;
+    }
+
+    .control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .slider {
+      flex: 1;
       height: 4px;
-      margin: 5px 0;
     }
 
-    .tag.is-small {
-      font-size: 0.65rem;
-      height: 1.2em;
-      padding-left: 0.4em;
-      padding-right: 0.4em;
+    .value-display {
+      min-width: 35px;
+      text-align: right;
+      font-weight: bold;
+      font-size: 0.75rem;
+    }
+
+    canvas {
+      border: 6px solid rgb(108, 99, 10);
+      border-radius: 24px;
+      display: block;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    button {
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-warning {
+      background-color: #ffdd57;
+      color: #333;
+    }
+
+    .btn-danger {
+      background-color: #f14668;
+      color: white;
+    }
+
+    .btn-info {
+      background-color: #3273dc;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.9;
     }
 
     /* Color-coded labels */
     .label-red {
-      color: #ff3860 !important;
+      color: #ff3860;
       font-weight: bold;
     }
 
     .label-blue {
-      color: #3273dc !important;
+      color: #3273dc;
       font-weight: bold;
     }
 
     .label-yellow {
-      color: #ffdd57 !important;
+      color: #ffdd57;
       font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
 
     .label-green {
-      color: #48c774 !important;
+      color: #48c774;
       font-weight: bold;
     }
 
-    /* Layout adjustments */
-    .rules-column {
-      margin-bottom: 1rem;
-    }
-
-    .particle-rules-box {
+    .quantic-controls {
+      width: 630px;
       max-width: 100%;
-    }
-
-    /* Quantic controls styling */
-    .quantic-label {
-      color: #ffffff !important;
-      font-weight: bold;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
     }
   </style>
     <title>Particle Life</title>
   </head>
 
-  <body style="background-color: black;">
+  <body>
 
     <!-- Header -->
-    <div class="hero">
-      <div class="hero-body" >
-        <div class="container has-text-centered box has-background-success-light">
-          <h1 class="title is-3 has-text-info-dark">
-            Particle Life
-          </h1>
-          <h2 class="title is-6 has-text-info-dark">
-             I love fools' experiments, I am always making them. (Charles R. Darwin)
-          </h2>
-        </div>
-      </div>
+    <div class="header">
+      <h1>Particle Life</h1>
+      <h2>I love fools' experiments, I am always making them. (Charles R. Darwin)</h2>
     </div>
 
-    <!-- Main Content: Particle Rules Left, Canvas and Controls Right -->
-    <div class="container is-fluid mt-4">
-      <div class="columns">
-        <!-- Left Column: Particle Interaction Rules -->
-        <div class="column is-one-quarter">
-          <div class="box has-background-white particle-rules-box">
-            <h4 class="subtitle is-7 has-text-info-dark">Particle Interaction Rules</h4>
+    <!-- Main Content -->
+    <div class="main-container">
+      <!-- Left Column: Particle Interaction Rules -->
+      <div class="left-column">
+        <div class="box">
+          <div class="box-title">Particle Interaction Rules</div>
 
-            <!-- Red Particle Rules -->
-            <div class="rules-column">
-              <h5 class="subtitle is-7 label-red">Red</h5>
-              <div class="field">
-                <label class="label is-small label-red">→ Red</label>
-                    <div class="control">
-                      <input id="rule-0-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                      <span id="rule-0-0-value">0</span>
-                    </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-blue">→ Blue</label>
-                <div class="control">
-                  <input id="rule-0-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-0-1-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-yellow">→ Yellow</label>
-                <div class="control">
-                  <input id="rule-0-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-0-2-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-green">→ Green</label>
-                <div class="control">
-                  <input id="rule-0-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-0-3-value">0</span>
-                </div>
+          <!-- Red Particle Rules -->
+          <div class="rules-section">
+            <div class="rules-section-title label-red">Red</div>
+            <div class="field">
+              <label class="label-red">→ Red</label>
+              <div class="control">
+                <input id="rule-0-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-0-0-value" class="value-display">0</span>
               </div>
             </div>
-
-            <!-- Blue Particle Rules -->
-            <div class="rules-column">
-              <h5 class="subtitle is-7 label-blue">Blue</h5>
-              <div class="field">
-                <label class="label is-small label-red">→ Red</label>
-                    <div class="control">
-                      <input id="rule-1-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                      <span id="rule-1-0-value">0</span>
-                    </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-blue">→ Blue</label>
-                <div class="control">
-                  <input id="rule-1-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-1-1-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-yellow">→ Yellow</label>
-                <div class="control">
-                  <input id="rule-1-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-1-2-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-green">→ Green</label>
-                <div class="control">
-                  <input id="rule-1-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-1-3-value">0</span>
-                </div>
+            <div class="field">
+              <label class="label-blue">→ Blue</label>
+              <div class="control">
+                <input id="rule-0-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-0-1-value" class="value-display">0</span>
               </div>
             </div>
-
-            <!-- Yellow Particle Rules -->
-            <div class="rules-column">
-              <h5 class="subtitle is-7 label-yellow">Yellow</h5>
-              <div class="field">
-                <label class="label is-small label-red">→ Red</label>
-                    <div class="control">
-                      <input id="rule-2-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                      <span id="rule-2-0-value">0</span>
-                    </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-blue">→ Blue</label>
-                <div class="control">
-                  <input id="rule-2-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-2-1-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-yellow">→ Yellow</label>
-                <div class="control">
-                  <input id="rule-2-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-2-2-value">0</span>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label is-small label-green">→ Green</label>
-                <div class="control">
-                  <input id="rule-2-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-2-3-value">0</span>
-                </div>
+            <div class="field">
+              <label class="label-yellow">→ Yellow</label>
+              <div class="control">
+                <input id="rule-0-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-0-2-value" class="value-display">0</span>
               </div>
             </div>
+            <div class="field">
+              <label class="label-green">→ Green</label>
+              <div class="control">
+                <input id="rule-0-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-0-3-value" class="value-display">0</span>
+              </div>
+            </div>
+          </div>
 
-            <!-- Green Particle Rules -->
-            <div class="rules-column">
-              <h5 class="subtitle is-7 label-green">Green</h5>
-              <div class="field">
-                <label class="label is-small label-red">→ Red</label>
-                    <div class="control">
-                      <input id="rule-3-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                      <span id="rule-3-0-value">0</span>
-                    </div>
+          <!-- Blue Particle Rules -->
+          <div class="rules-section">
+            <div class="rules-section-title label-blue">Blue</div>
+            <div class="field">
+              <label class="label-red">→ Red</label>
+              <div class="control">
+                <input id="rule-1-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-1-0-value" class="value-display">0</span>
               </div>
-              <div class="field">
-                <label class="label is-small label-blue">→ Blue</label>
-                <div class="control">
-                  <input id="rule-3-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-3-1-value">0</span>
-                </div>
+            </div>
+            <div class="field">
+              <label class="label-blue">→ Blue</label>
+              <div class="control">
+                <input id="rule-1-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-1-1-value" class="value-display">0</span>
               </div>
-              <div class="field">
-                <label class="label is-small label-yellow">→ Yellow</label>
-                <div class="control">
-                  <input id="rule-3-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-3-2-value">0</span>
-                </div>
+            </div>
+            <div class="field">
+              <label class="label-yellow">→ Yellow</label>
+              <div class="control">
+                <input id="rule-1-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-1-2-value" class="value-display">0</span>
               </div>
-              <div class="field">
-                <label class="label is-small label-green">→ Green</label>
-                <div class="control">
-                  <input id="rule-3-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                  <span id="rule-3-3-value">0</span>
-                </div>
+            </div>
+            <div class="field">
+              <label class="label-green">→ Green</label>
+              <div class="control">
+                <input id="rule-1-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-1-3-value" class="value-display">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yellow Particle Rules -->
+          <div class="rules-section">
+            <div class="rules-section-title label-yellow">Yellow</div>
+            <div class="field">
+              <label class="label-red">→ Red</label>
+              <div class="control">
+                <input id="rule-2-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-2-0-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-blue">→ Blue</label>
+              <div class="control">
+                <input id="rule-2-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-2-1-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-yellow">→ Yellow</label>
+              <div class="control">
+                <input id="rule-2-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-2-2-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-green">→ Green</label>
+              <div class="control">
+                <input id="rule-2-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-2-3-value" class="value-display">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Green Particle Rules -->
+          <div class="rules-section">
+            <div class="rules-section-title label-green">Green</div>
+            <div class="field">
+              <label class="label-red">→ Red</label>
+              <div class="control">
+                <input id="rule-3-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-3-0-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-blue">→ Blue</label>
+              <div class="control">
+                <input id="rule-3-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-3-1-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-yellow">→ Yellow</label>
+              <div class="control">
+                <input id="rule-3-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-3-2-value" class="value-display">0</span>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label-green">→ Green</label>
+              <div class="control">
+                <input id="rule-3-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+                <span id="rule-3-3-value" class="value-display">0</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Right Column: Canvas, Buttons, and Quantic Controls -->
-        <div class="column">
-          <div class="has-text-centered">
-            <canvas id="life" tabindex="-1" width="630px" height="630px"></canvas>
+      <!-- Right Column: Canvas, Buttons, and Quantic Controls -->
+      <div class="right-column">
+        <canvas id="life" tabindex="-1" width="630" height="630"></canvas>
+
+        <!-- Control Buttons -->
+        <div class="buttons">
+          <button id="randomize-rules" class="btn-warning">Randomize Rules</button>
+          <button id="reset-simulation" class="btn-danger">Reset Simulation</button>
+          <button id="pause-simulation" class="btn-info">Pause</button>
+        </div>
+
+        <!-- Quantic Controls -->
+        <div class="box-dark quantic-controls">
+          <div class="box-title">Quantic Controls</div>
+          <div class="field">
+            <label>Schwarzschild Radius</label>
+            <div class="control">
+              <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
+              <span id="blackhole-radius-value" class="value-display">21</span>
+            </div>
           </div>
-
-          <!-- Control Buttons -->
-          <div class="has-text-centered mt-3">
-            <button id="randomize-rules" class="button is-warning is-small">Randomize Rules</button>
-            <button id="reset-simulation" class="button is-danger is-small">Reset Simulation</button>
-            <button id="pause-simulation" class="button is-info is-small">Pause</button>
+          <div class="field">
+            <label>Gravitational Constant</label>
+            <div class="control">
+              <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
+              <span id="blackhole-force-value" class="value-display">0.0015</span>
+            </div>
           </div>
-
-          <!-- Quantic Controls -->
-          <div class="box has-background-dark mt-3" style="max-width: 630px; margin-left: auto; margin-right: auto;">
-            <h4 class="subtitle is-7 quantic-label">Quantic Controls</h4>
-            <div class="field">
-              <label class="label is-small quantic-label">Schwarzschild Radius</label>
-              <div class="control">
-                <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
-                <span id="blackhole-radius-value" class="quantic-label">21</span>
-              </div>
+          <div class="field">
+            <label>Repulsion Force</label>
+            <div class="control">
+              <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
+              <span id="repulsion-force-value" class="value-display">0.2</span>
             </div>
-            <div class="field">
-              <label class="label is-small quantic-label">Gravitational Constant</label>
-              <div class="control">
-                <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
-                <span id="blackhole-force-value" class="quantic-label">0.0015</span>
-              </div>
+          </div>
+          <div class="field">
+            <label>Speed Factor</label>
+            <div class="control">
+              <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
+              <span id="speed-factor-value" class="value-display">0.5</span>
             </div>
-            <div class="field">
-              <label class="label is-small quantic-label">Repulsion Force</label>
-              <div class="control">
-                <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
-                <span id="repulsion-force-value" class="quantic-label">0.2</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label is-small quantic-label">Speed Factor</label>
-              <div class="control">
-                <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
-                <span id="speed-factor-value" class="quantic-label">0.5</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label is-small quantic-label">
-                <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
-              </label>
-            </div>
+          </div>
+          <div class="field">
+            <label>
+              <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
+            </label>
           </div>
         </div>
       </div>
