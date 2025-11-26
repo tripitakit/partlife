@@ -342,6 +342,13 @@
         <div class="box-dark quantic-controls">
           <div class="box-title">Quantic Controls</div>
           <div class="field">
+            <label>Number of Particles</label>
+            <div class="control">
+              <input id="num-particles" class="slider" type="range" min="100" max="1000" step="4" value="400">
+              <span id="num-particles-value" class="value-display">400</span>
+            </div>
+          </div>
+          <div class="field">
             <label>Schwarzschild Radius</label>
             <div class="control">
               <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
@@ -387,7 +394,7 @@
   const canvas = document.getElementById("life");
   const m = canvas.getContext("2d");
 
-  const totNumOfParticles = 400;
+  let totNumOfParticles = 400;
   const numOfElements = 4;
   let speedK = totNumOfParticles / (2000 + int(rnd(2000)))
   const ruleRadius =2400 + int(rnd(3600))
@@ -408,7 +415,7 @@
   let blackhole_singularity_fx = -(rnd(0.002) + 0.0005)
   let isPaused = false;
 
-  const atoms = [];
+  let atoms = [];
   let rules = makeRules(numOfElements)
 
   function draw(x, y, c, s) {
@@ -680,6 +687,28 @@
     speedFactorSlider.addEventListener('input', function() {
       speedK = parseFloat(this.value);
       speedFactorValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    // Initialize number of particles control
+    const numParticlesSlider = document.getElementById('num-particles');
+    const numParticlesValue = document.getElementById('num-particles-value');
+    numParticlesSlider.value = totNumOfParticles;
+    numParticlesValue.textContent = totNumOfParticles;
+    numParticlesSlider.addEventListener('input', function() {
+      const newNumParticles = parseInt(this.value);
+      numParticlesValue.textContent = newNumParticles;
+
+      // Update total number of particles
+      totNumOfParticles = newNumParticles;
+
+      // Clear existing atoms
+      atoms.length = 0;
+
+      // Create new particles with the new count
+      const particlesPerElement = Math.floor(totNumOfParticles / numOfElements);
+      for (let i = 0; i < numOfElements; i++) {
+        create(particlesPerElement, i, choosePrimaryColor(i));
+      }
     });
 
     // Initialize wandering black hole checkbox
