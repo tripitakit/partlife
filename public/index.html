@@ -30,12 +30,15 @@
     .main-container {
       display: flex;
       gap: 20px;
-      max-width: 1400px;
+      max-width: 100%;
       margin: 0 auto;
     }
 
     .left-column {
-      flex: 0 0 300px;
+      flex: 0 0 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     .right-column {
@@ -43,6 +46,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .box {
@@ -176,10 +180,10 @@
       font-weight: bold;
     }
 
-    .quantic-controls {
-      margin-top: 30px;
-      width: 630px;
-      max-width: 100%;
+    .canvas-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
     <title>Particle Life</title>
@@ -328,19 +332,23 @@
         </div>
       </div>
 
-      <!-- Right Column: Canvas, Buttons, and Quantic Controls -->
-      <div class="right-column">
-        <canvas id="life" tabindex="-1" width="630" height="630"></canvas>
-
-        <!-- Control Buttons -->
-        <div class="buttons">
-          <button id="randomize-rules" class="btn-warning">Randomize Rules</button>
-          <button id="pause-simulation" class="btn-info">Pause</button>
-        </div>
-
         <!-- Quantic Controls -->
-        <div class="box-dark quantic-controls">
+        <div class="box-dark">
           <div class="box-title">Quantic Controls</div>
+          <div class="field">
+            <label>Canvas Width</label>
+            <div class="control">
+              <input id="canvas-width" class="slider" type="range" min="400" max="1200" step="10" value="800">
+              <span id="canvas-width-value" class="value-display">800</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Canvas Height</label>
+            <div class="control">
+              <input id="canvas-height" class="slider" type="range" min="400" max="1200" step="10" value="800">
+              <span id="canvas-height-value" class="value-display">800</span>
+            </div>
+          </div>
           <div class="field">
             <label>Number of Particles</label>
             <div class="control">
@@ -382,6 +390,19 @@
             </label>
           </div>
         </div>
+
+        <!-- Control Buttons -->
+        <div class="buttons">
+          <button id="randomize-rules" class="btn-warning">Randomize Rules</button>
+          <button id="pause-simulation" class="btn-info">Pause</button>
+        </div>
+      </div>
+
+      <!-- Right Column: Canvas -->
+      <div class="right-column">
+        <div class="canvas-container">
+          <canvas id="life" tabindex="-1" width="800" height="800"></canvas>
+        </div>
       </div>
     </div>
 
@@ -403,8 +424,8 @@
   const size = 4;
   const bgcolor = "#000000"
 
-  const width = 630 //px
-  const height = 630 //px
+  let width = 800 //px
+  let height = 800 //px
 
   let blackhole_x = int(rnd(width/2)) + width/4
   let blackhole_y = int(rnd(height/2)) + height/4
@@ -687,6 +708,36 @@
     speedFactorSlider.addEventListener('input', function() {
       speedK = parseFloat(this.value);
       speedFactorValue.textContent = parseFloat(this.value).toFixed(2);
+    });
+
+    // Initialize canvas width control
+    const canvasWidthSlider = document.getElementById('canvas-width');
+    const canvasWidthValue = document.getElementById('canvas-width-value');
+    canvasWidthSlider.value = width;
+    canvasWidthValue.textContent = width;
+    canvasWidthSlider.addEventListener('input', function() {
+      const newWidth = parseInt(this.value);
+      canvasWidthValue.textContent = newWidth;
+      width = newWidth;
+      canvas.width = newWidth;
+
+      // Reposition black hole if needed
+      blackhole_x = Math.min(blackhole_x, width - 50);
+    });
+
+    // Initialize canvas height control
+    const canvasHeightSlider = document.getElementById('canvas-height');
+    const canvasHeightValue = document.getElementById('canvas-height-value');
+    canvasHeightSlider.value = height;
+    canvasHeightValue.textContent = height;
+    canvasHeightSlider.addEventListener('input', function() {
+      const newHeight = parseInt(this.value);
+      canvasHeightValue.textContent = newHeight;
+      height = newHeight;
+      canvas.height = newHeight;
+
+      // Reposition black hole if needed
+      blackhole_y = Math.min(blackhole_y, height - 50);
     });
 
     // Initialize number of particles control
