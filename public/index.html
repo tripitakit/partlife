@@ -1,798 +1,984 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    body {
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        repeating-linear-gradient(
-          45deg,
-          #0a0a0a 0px,
-          #0a0a0a 10px,
-          #1a1a1a 10px,
-          #1a1a1a 20px
-        );
-      color: white;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      min-height: 100vh;
-    }
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
 
-    .main-container {
-      display: flex;
-      gap: 20px;
-      max-width: 100%;
-      margin: 0 auto;
-    }
+			body {
+				background:
+					linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+					repeating-linear-gradient(45deg,
+						#0a0a0a 0px,
+						#0a0a0a 10px,
+						#1a1a1a 10px,
+						#1a1a1a 20px);
+				color: white;
+				font-family: Arial, sans-serif;
+				padding: 20px;
+				min-height: 100vh;
+			}
 
-    .left-column {
-      flex: 0 0 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+			.main-container {
+				display: flex;
+				gap: 20px;
+				max-width: 100%;
+				margin: 0 auto;
+			}
 
-    .right-column {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-    }
+			.left-column {
+				flex: 0 0 320px;
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+			}
 
-    .box {
-      background-color: rgba(45, 45, 45, 0.85);
-      color: white;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      backdrop-filter: blur(10px);
-    }
+			.center-column {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: flex-start;
+			}
 
-    .box-dark {
-      background-color: rgba(45, 45, 45, 0.85);
-      color: white;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      backdrop-filter: blur(10px);
-    }
+			.right-column {
+				flex: 0 0 300px;
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+			}
 
-    .box-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-      color: white;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    }
+			.box {
+				background-color: rgba(45, 45, 45, 0.85);
+				color: white;
+				padding: 15px;
+				border-radius: 8px;
+				margin-bottom: 15px;
+				backdrop-filter: blur(10px);
+			}
 
-    .box-dark .box-title {
-      color: white;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    }
+			.box-dark {
+				background-color: rgba(45, 45, 45, 0.85);
+				color: white;
+				padding: 15px;
+				border-radius: 8px;
+				margin-bottom: 15px;
+				backdrop-filter: blur(10px);
+			}
 
-    .rules-section {
-      background-color: rgba(20, 20, 20, 0.6);
-      padding: 12px;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+			.box-title {
+				font-size: 0.9rem;
+				font-weight: bold;
+				margin-bottom: 15px;
+				color: white;
+				text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+			}
 
-    .rules-section-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-    }
+			.box-dark .box-title {
+				color: white;
+				text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+			}
 
-    .field {
-      margin-bottom: 8px;
-    }
+			.rules-section {
+				background-color: rgba(20, 20, 20, 0.6);
+				padding: 12px;
+				border-radius: 6px;
+				margin-bottom: 12px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
 
-    .field label {
-      display: block;
-      font-size: 0.75rem;
-      margin-bottom: 3px;
-    }
+			.rules-section-title {
+				font-size: 0.9rem;
+				font-weight: bold;
+				margin-bottom: 12px;
+				padding-bottom: 8px;
+				border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+			}
 
-    .control {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+			.field {
+				margin-bottom: 8px;
+			}
 
-    .slider {
-      flex: 1;
-      height: 4px;
-    }
+			.field label {
+				display: block;
+				font-size: 0.75rem;
+				margin-bottom: 3px;
+			}
 
-    .value-display {
-      min-width: 35px;
-      text-align: right;
-      font-weight: bold;
-      font-size: 0.75rem;
-    }
+			.control {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
 
-    canvas {
-      border: 6px solid rgb(108, 99, 10);
-      border-radius: 24px;
-      display: block;
-    }
+			.slider {
+				flex: 1;
+				height: 4px;
+			}
 
-    .buttons {
-      margin-top: 15px;
-      text-align: center;
-    }
+			.value-display {
+				min-width: 35px;
+				text-align: right;
+				font-weight: bold;
+				font-size: 0.75rem;
+			}
 
-    button {
-      font-size: 0.8rem;
-      padding: 8px 16px;
-      margin: 0 5px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+			canvas {
+				border: 6px solid rgb(108, 99, 10);
+				border-radius: 24px;
+				display: block;
+			}
 
-    .btn-warning {
-      background-color: #ffdd57;
-      color: #333;
-    }
+			.buttons {
+				margin-top: 15px;
+				text-align: center;
+			}
 
-    .btn-danger {
-      background-color: #f14668;
-      color: white;
-    }
+			button {
+				font-size: 0.8rem;
+				padding: 8px 16px;
+				margin: 0 5px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				font-weight: bold;
+			}
 
-    .btn-info {
-      background-color: #3273dc;
-      color: white;
-    }
+			.btn-warning {
+				background-color: #ffdd57;
+				color: #333;
+			}
 
-    button:hover {
-      opacity: 0.9;
-    }
+			.btn-danger {
+				background-color: #f14668;
+				color: white;
+			}
 
-    /* Color-coded labels */
-    .label-red {
-      color: #ff3860;
-      font-weight: bold;
-    }
+			.btn-info {
+				background-color: #3273dc;
+				color: white;
+			}
 
-    .label-blue {
-      color: #3273dc;
-      font-weight: bold;
-    }
+			button:hover {
+				opacity: 0.9;
+			}
 
-    .label-yellow {
-      color: #ffdd57;
-      font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
+			/* Color-coded labels */
+			.label-red {
+				color: #ff3860;
+				font-weight: bold;
+			}
 
-    .label-green {
-      color: #48c774;
-      font-weight: bold;
-    }
+			.label-blue {
+				color: #3273dc;
+				font-weight: bold;
+			}
 
-    .canvas-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  </style>
-    <title>Particle Life</title>
-  </head>
+			.label-yellow {
+				color: #ffdd57;
+				font-weight: bold;
+				text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+			}
 
-  <body>
+			.label-green {
+				color: #48c774;
+				font-weight: bold;
+			}
 
-    <!-- Main Content -->
-    <div class="main-container">
-      <!-- Left Column: Particle Interaction Rules -->
-      <div class="left-column">
-        <div class="box">
-          <div class="box-title">Particle Interaction Rules</div>
+			.canvas-container {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
 
-          <!-- Red Particle Rules -->
-          <div class="rules-section">
-            <div class="rules-section-title label-red">Red</div>
-            <div class="field">
-              <label class="label-red">→ Red</label>
-              <div class="control">
-                <input id="rule-0-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-0-0-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-blue">→ Blue</label>
-              <div class="control">
-                <input id="rule-0-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-0-1-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-yellow">→ Yellow</label>
-              <div class="control">
-                <input id="rule-0-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-0-2-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-green">→ Green</label>
-              <div class="control">
-                <input id="rule-0-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-0-3-value" class="value-display">0</span>
-              </div>
-            </div>
-          </div>
+			.worlds-list {
+				height: 200px;
+				overflow-y: auto;
+				background: rgba(0, 0, 0, 0.3);
+				border-radius: 4px;
+				margin-top: 10px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
 
-          <!-- Blue Particle Rules -->
-          <div class="rules-section">
-            <div class="rules-section-title label-blue">Blue</div>
-            <div class="field">
-              <label class="label-red">→ Red</label>
-              <div class="control">
-                <input id="rule-1-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-1-0-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-blue">→ Blue</label>
-              <div class="control">
-                <input id="rule-1-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-1-1-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-yellow">→ Yellow</label>
-              <div class="control">
-                <input id="rule-1-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-1-2-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-green">→ Green</label>
-              <div class="control">
-                <input id="rule-1-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-1-3-value" class="value-display">0</span>
-              </div>
-            </div>
-          </div>
+			.world-item {
+				padding: 8px 12px;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+				cursor: pointer;
+				transition: background-color 0.2s;
+				font-size: 0.85rem;
+			}
 
-          <!-- Yellow Particle Rules -->
-          <div class="rules-section">
-            <div class="rules-section-title label-yellow">Yellow</div>
-            <div class="field">
-              <label class="label-red">→ Red</label>
-              <div class="control">
-                <input id="rule-2-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-2-0-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-blue">→ Blue</label>
-              <div class="control">
-                <input id="rule-2-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-2-1-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-yellow">→ Yellow</label>
-              <div class="control">
-                <input id="rule-2-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-2-2-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-green">→ Green</label>
-              <div class="control">
-                <input id="rule-2-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-2-3-value" class="value-display">0</span>
-              </div>
-            </div>
-          </div>
+			.world-item:hover {
+				background-color: rgba(255, 255, 255, 0.1);
+			}
 
-          <!-- Green Particle Rules -->
-          <div class="rules-section">
-            <div class="rules-section-title label-green">Green</div>
-            <div class="field">
-              <label class="label-red">→ Red</label>
-              <div class="control">
-                <input id="rule-3-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-3-0-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-blue">→ Blue</label>
-              <div class="control">
-                <input id="rule-3-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-3-1-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-yellow">→ Yellow</label>
-              <div class="control">
-                <input id="rule-3-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-3-2-value" class="value-display">0</span>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label-green">→ Green</label>
-              <div class="control">
-                <input id="rule-3-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
-                <span id="rule-3-3-value" class="value-display">0</span>
-              </div>
-            </div>
-          </div>
-        </div>
+			.world-item:last-child {
+				border-bottom: none;
+			}
 
-        <!-- Quantic Controls -->
-        <div class="box-dark">
-          <div class="box-title">Quantic Controls</div>
-          <div class="field">
-            <label>Canvas Width</label>
-            <div class="control">
-              <input id="canvas-width" class="slider" type="range" min="400" max="1200" step="10" value="800">
-              <span id="canvas-width-value" class="value-display">800</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Canvas Height</label>
-            <div class="control">
-              <input id="canvas-height" class="slider" type="range" min="400" max="1200" step="10" value="800">
-              <span id="canvas-height-value" class="value-display">800</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Number of Particles</label>
-            <div class="control">
-              <input id="num-particles" class="slider" type="range" min="100" max="1000" step="4" value="400">
-              <span id="num-particles-value" class="value-display">400</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Schwarzschild Radius</label>
-            <div class="control">
-              <input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
-              <span id="blackhole-radius-value" class="value-display">21</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Gravitational Constant</label>
-            <div class="control">
-              <input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001" value="0.0015">
-              <span id="blackhole-force-value" class="value-display">0.0015</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Repulsion Force</label>
-            <div class="control">
-              <input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
-              <span id="repulsion-force-value" class="value-display">0.2</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Speed Factor</label>
-            <div class="control">
-              <input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
-              <span id="speed-factor-value" class="value-display">0.5</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>
-              <input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
-            </label>
-          </div>
-        </div>
-      </div>
+			.world-item-date {
+				color: #aaa;
+				font-size: 0.75rem;
+			}
+		</style>
+		<title>Particle Life</title>
+	</head>
 
-      <!-- Right Column: Canvas and Buttons -->
-      <div class="right-column">
-        <div class="canvas-container">
-          <canvas id="life" tabindex="-1" width="800" height="800"></canvas>
-        </div>
+	<body>
 
-        <!-- Control Buttons -->
-        <div class="buttons">
-          <button id="randomize-rules" class="btn-warning">Randomize Rules</button>
-          <button id="pause-simulation" class="btn-info">Pause</button>
-        </div>
-      </div>
-    </div>
+		<!-- Main Content -->
+		<div class="main-container">
+			<!-- Left Column: Particle Interaction Rules -->
+			<div class="left-column">
+				<div class="box">
+					<div class="box-title">Particle Interaction Rules</div>
 
-  </body>
+					<!-- Red Particle Rules -->
+					<div class="rules-section">
+						<div class="rules-section-title label-red">Red</div>
+						<div class="field">
+							<label class="label-red">→ Red</label>
+							<div class="control">
+								<input id="rule-0-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-0-0-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-blue">→ Blue</label>
+							<div class="control">
+								<input id="rule-0-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-0-1-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-yellow">→ Yellow</label>
+							<div class="control">
+								<input id="rule-0-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-0-2-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-green">→ Green</label>
+							<div class="control">
+								<input id="rule-0-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-0-3-value" class="value-display">0</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Blue Particle Rules -->
+					<div class="rules-section">
+						<div class="rules-section-title label-blue">Blue</div>
+						<div class="field">
+							<label class="label-red">→ Red</label>
+							<div class="control">
+								<input id="rule-1-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-1-0-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-blue">→ Blue</label>
+							<div class="control">
+								<input id="rule-1-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-1-1-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-yellow">→ Yellow</label>
+							<div class="control">
+								<input id="rule-1-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-1-2-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-green">→ Green</label>
+							<div class="control">
+								<input id="rule-1-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-1-3-value" class="value-display">0</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Yellow Particle Rules -->
+					<div class="rules-section">
+						<div class="rules-section-title label-yellow">Yellow</div>
+						<div class="field">
+							<label class="label-red">→ Red</label>
+							<div class="control">
+								<input id="rule-2-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-2-0-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-blue">→ Blue</label>
+							<div class="control">
+								<input id="rule-2-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-2-1-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-yellow">→ Yellow</label>
+							<div class="control">
+								<input id="rule-2-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-2-2-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-green">→ Green</label>
+							<div class="control">
+								<input id="rule-2-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-2-3-value" class="value-display">0</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Green Particle Rules -->
+					<div class="rules-section">
+						<div class="rules-section-title label-green">Green</div>
+						<div class="field">
+							<label class="label-red">→ Red</label>
+							<div class="control">
+								<input id="rule-3-0" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-3-0-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-blue">→ Blue</label>
+							<div class="control">
+								<input id="rule-3-1" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-3-1-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-yellow">→ Yellow</label>
+							<div class="control">
+								<input id="rule-3-2" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-3-2-value" class="value-display">0</span>
+							</div>
+						</div>
+						<div class="field">
+							<label class="label-green">→ Green</label>
+							<div class="control">
+								<input id="rule-3-3" class="slider" type="range" min="-1.5" max="1.5" step="0.1" value="0">
+								<span id="rule-3-3-value" class="value-display">0</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Quantic Controls -->
+				<div class="box-dark">
+					<div class="box-title">Quantic Controls</div>
+					<div class="field">
+						<label>Canvas Width</label>
+						<div class="control">
+							<input id="canvas-width" class="slider" type="range" min="400" max="1200" step="10" value="800">
+							<span id="canvas-width-value" class="value-display">800</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Canvas Height</label>
+						<div class="control">
+							<input id="canvas-height" class="slider" type="range" min="400" max="1200" step="10" value="800">
+							<span id="canvas-height-value" class="value-display">800</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Number of Particles</label>
+						<div class="control">
+							<input id="num-particles" class="slider" type="range" min="100" max="1000" step="4" value="400">
+							<span id="num-particles-value" class="value-display">400</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Schwarzschild Radius</label>
+						<div class="control">
+							<input id="blackhole-radius" class="slider" type="range" min="3" max="100" step="1" value="21">
+							<span id="blackhole-radius-value" class="value-display">21</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Gravitational Constant</label>
+						<div class="control">
+							<input id="blackhole-force" class="slider" type="range" min="0.0001" max="0.05" step="0.0001"
+								value="0.0015">
+							<span id="blackhole-force-value" class="value-display">0.0015</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Repulsion Force</label>
+						<div class="control">
+							<input id="repulsion-force" class="slider" type="range" min="0.0" max="1.0" step="0.05" value="0.2">
+							<span id="repulsion-force-value" class="value-display">0.2</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>Speed Factor</label>
+						<div class="control">
+							<input id="speed-factor" class="slider" type="range" min="0.1" max="1.0" step="0.05" value="0.5">
+							<span id="speed-factor-value" class="value-display">0.5</span>
+						</div>
+					</div>
+					<div class="field">
+						<label>
+							<input id="wandering-blackhole" type="checkbox"> Wandering Black Hole
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<!-- Center Column: Canvas and Buttons -->
+			<div class="center-column">
+				<div class="canvas-container">
+					<canvas id="life" tabindex="-1" width="800" height="800"></canvas>
+				</div>
+
+				<!-- Control Buttons -->
+				<div class="buttons">
+					<button id="randomize-rules" class="btn-warning">Randomize Rules</button>
+					<button id="pause-simulation" class="btn-info">Pause</button>
+				</div>
+			</div>
+
+			<!-- Right Column: World Controls -->
+			<div class="right-column">
+				<div class="box">
+					<div class="box-title">World Controls</div>
+					<button id="save-world" class="btn-info" style="width: 100%; margin: 0;">Save the world</button>
+					<div id="worlds-list" class="worlds-list">
+						<!-- Worlds will be populated here -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
 </html>
 
 
 <script>
 
-  const canvas = document.getElementById("life");
-  const m = canvas.getContext("2d");
+	const canvas = document.getElementById("life");
+	const m = canvas.getContext("2d");
 
-  let totNumOfParticles = 400;
-  const numOfElements = 4;
-  let speedK = totNumOfParticles / (2000 + int(rnd(2000)))
-  const ruleRadius =2400 + int(rnd(3600))
-  const repulsionRadius = 9 + int(rnd(120))
-  let repulsionFx = rnd(0.4)
-  const size = 4;
-  const bgcolor = "#000000"
+	let totNumOfParticles = 400;
+	const numOfElements = 4;
+	let speedK = totNumOfParticles / (2000 + int(rnd(2000)))
+	const ruleRadius = 2400 + int(rnd(3600))
+	const repulsionRadius = 9 + int(rnd(120))
+	let repulsionFx = rnd(0.4)
+	const size = 4;
+	const bgcolor = "#000000"
 
-  let width = 800 //px
-  let height = 800 //px
+	let width = 800 //px
+	let height = 800 //px
 
-  let blackhole_x = int(rnd(width/2)) + width/4
-  let blackhole_y = int(rnd(height/2)) + height/4
-  let wandering_blackhole = false
-  let blackhole_vx = 0
-  let blackhole_vy = 0
-  let blackhole_schwarzschild_radius = 21
-  let blackhole_singularity_fx = -(rnd(0.002) + 0.0005)
-  let isPaused = false;
+	let blackhole_x = int(rnd(width / 2)) + width / 4
+	let blackhole_y = int(rnd(height / 2)) + height / 4
+	let wandering_blackhole = false
+	let blackhole_vx = 0
+	let blackhole_vy = 0
+	let blackhole_schwarzschild_radius = 21
+	let blackhole_singularity_fx = -(rnd(0.002) + 0.0005)
+	let isPaused = false;
 
-  let atoms = [];
-  let rules = makeRules(numOfElements)
+	let atoms = [];
+	let rules = makeRules(numOfElements)
 
-  function draw(x, y, c, s) {
-    m.fillStyle = c;
-    m.fillRect(x, y, s, s);
-  };
+	function draw(x, y, c, s) {
+		m.fillStyle = c;
+		m.fillRect(x, y, s, s);
+	};
 
-  function drawBlackHole(x, y, c, r) {
-    m.fillStyle = c;
-    m.beginPath();
-    m.arc(x, y, r, 0, 2 * Math.PI);
-    m.fill();
-  };
+	function drawBlackHole(x, y, c, r) {
+		m.fillStyle = c;
+		m.beginPath();
+		m.arc(x, y, r, 0, 2 * Math.PI);
+		m.fill();
+	};
 
-  function atom(x, y, c, f) {
-    return { x: x, y: y, vx: 0, vy: 0, color: c, fenotipo: f };
-  };
+	function atom(x, y, c, f) {
+		return { x: x, y: y, vx: 0, vy: 0, color: c, fenotipo: f };
+	};
 
-  function randomX() { return rnd(canvas.height) };
+	function randomX() { return rnd(canvas.height) };
 
-  function randomY() { return rnd(canvas.width) };
+	function randomY() { return rnd(canvas.width) };
 
-  function rnd(max) { return Math.random() * max }
+	function rnd(max) { return Math.random() * max }
 
-  function int(f) { return Math.floor(f) + 1 }
+	function int(f) { return Math.floor(f) + 1 }
 
-  function create(number, color, fenotipo) {
-    for (let i = 0; i < number; i++) {
-      atoms.push(atom(randomY(), randomX(), color, fenotipo));
-    }
-  };
+	function create(number, color, fenotipo) {
+		for (let i = 0; i < number; i++) {
+			atoms.push(atom(randomY(), randomX(), color, fenotipo));
+		}
+	};
 
-  function choose(a, b) {
-    // return random a or b
-    if (rnd(1) > 0.5) {
-      return a
-    } else {
-      return b
-    }
-  }
+	function choose(a, b) {
+		// return random a or b
+		if (rnd(1) > 0.5) {
+			return a
+		} else {
+			return b
+		}
+	}
 
 
 	function choosePrimaryColor(index) {
 		const primaryColors = ['red', 'blue', 'yellow', 'green'];
 		return primaryColors[index];
-  }
+	}
 
-  function makeRules(nofelems) {
-    var _rules = {}
-    for (var e = 0; e < nofelems; e++) {
-      _rules[e] = {}
-      for (var k = 0; k < nofelems; k++) {
-        _rules[e][k] = rnd(3) - 1.5
-      }
-    }
-    return _rules;
-  }
+	function makeRules(nofelems) {
+		var _rules = {}
+		for (var e = 0; e < nofelems; e++) {
+			_rules[e] = {}
+			for (var k = 0; k < nofelems; k++) {
+				_rules[e][k] = rnd(3) - 1.5
+			}
+		}
+		return _rules;
+	}
 
-  function applyRules() {
-    // Update black hole position if wandering is enabled
-    if (wandering_blackhole) {
-      // Brownian motion for black hole
-      blackhole_vx += (rnd(2) - 1) * 0.5; // Random acceleration
-      blackhole_vy += (rnd(2) - 1) * 0.5;
+	function applyRules() {
+		// Update black hole position if wandering is enabled
+		if (wandering_blackhole) {
+			// Brownian motion for black hole
+			blackhole_vx += (rnd(2) - 1) * 0.5; // Random acceleration
+			blackhole_vy += (rnd(2) - 1) * 0.5;
 
-      // Apply friction to prevent excessive speed
-      blackhole_vx *= 0.95;
-      blackhole_vy *= 0.95;
+			// Apply friction to prevent excessive speed
+			blackhole_vx *= 0.95;
+			blackhole_vy *= 0.95;
 
-      // Update position
-      blackhole_x += blackhole_vx;
-      blackhole_y += blackhole_vy;
+			// Update position
+			blackhole_x += blackhole_vx;
+			blackhole_y += blackhole_vy;
 
-      // Keep black hole within canvas bounds
-      if (blackhole_x <= 50) {
-        blackhole_x = 50;
-        blackhole_vx *= -0.5;
-      }
-      if (blackhole_x >= width - 50) {
-        blackhole_x = width - 50;
-        blackhole_vx *= -0.5;
-      }
-      if (blackhole_y <= 50) {
-        blackhole_y = 50;
-        blackhole_vy *= -0.5;
-      }
-      if (blackhole_y >= height - 50) {
-        blackhole_y = height - 50;
-        blackhole_vy *= -0.5;
-      }
-    }
+			// Keep black hole within canvas bounds
+			if (blackhole_x <= 50) {
+				blackhole_x = 50;
+				blackhole_vx *= -0.5;
+			}
+			if (blackhole_x >= width - 50) {
+				blackhole_x = width - 50;
+				blackhole_vx *= -0.5;
+			}
+			if (blackhole_y <= 50) {
+				blackhole_y = 50;
+				blackhole_vy *= -0.5;
+			}
+			if (blackhole_y >= height - 50) {
+				blackhole_y = height - 50;
+				blackhole_vy *= -0.5;
+			}
+		}
 
-    for (let i = 0; i < atoms.length; i++) {
+		for (let i = 0; i < atoms.length; i++) {
 
-      let fx = 0;
-      let fy = 0;
+			let fx = 0;
+			let fy = 0;
 
-      const a = atoms[i];
+			const a = atoms[i];
 
-      for (let j = 0; j < atoms.length; j++) {
+			for (let j = 0; j < atoms.length; j++) {
 
-        if (j !== i) {
-          const b = atoms[j];
-          const g = rules[a.color][b.color];
+				if (j !== i) {
+					const b = atoms[j];
+					const g = rules[a.color][b.color];
 
-          if (g !== undefined) {
-            // Toroidal distance calculation - shortest path considering wraparound
-            let dx = a.x - b.x;
-            let dy = a.y - b.y;
+					if (g !== undefined) {
+						// Toroidal distance calculation - shortest path considering wraparound
+						let dx = a.x - b.x;
+						let dy = a.y - b.y;
 
-            // Find shortest distance across toroidal surface
-            if (Math.abs(dx) > canvas.width / 2) {
-              dx = dx > 0 ? dx - canvas.width : dx + canvas.width;
-            }
-            if (Math.abs(dy) > canvas.height / 2) {
-              dy = dy > 0 ? dy - canvas.height : dy + canvas.height;
-            }
+						// Find shortest distance across toroidal surface
+						if (Math.abs(dx) > canvas.width / 2) {
+							dx = dx > 0 ? dx - canvas.width : dx + canvas.width;
+						}
+						if (Math.abs(dy) > canvas.height / 2) {
+							dy = dy > 0 ? dy - canvas.height : dy + canvas.height;
+						}
 
-            if (dx !== 0 || dy !== 0) {
-              const d = dx * dx + dy * dy;
+						if (dx !== 0 || dy !== 0) {
+							const d = dx * dx + dy * dy;
 
-              if (d <= ruleRadius) {
-                const F = g / Math.sqrt(d);
-                fx += F * dx;
-                fy += F * dy;
-              }
+							if (d <= ruleRadius) {
+								const F = g / Math.sqrt(d);
+								fx += F * dx;
+								fy += F * dy;
+							}
 
-              if (d <= repulsionRadius) {
-                const F = g / Math.sqrt(d);
-                fx += repulsionFx * dx;
-                fy += repulsionFx * dy;
-              }
+							if (d <= repulsionRadius) {
+								const F = g / Math.sqrt(d);
+								fx += repulsionFx * dx;
+								fy += repulsionFx * dy;
+							}
 
-              // apply blackhole force on atom in a - toroidal distance
-              let dx_bh = a.x - blackhole_x;
-              let dy_bh = a.y - blackhole_y;
+							// apply blackhole force on atom in a - toroidal distance
+							let dx_bh = a.x - blackhole_x;
+							let dy_bh = a.y - blackhole_y;
 
-              // Find shortest distance to black hole across toroidal surface
-              if (Math.abs(dx_bh) > canvas.width / 2) {
-                dx_bh = dx_bh > 0 ? dx_bh - canvas.width : dx_bh + canvas.width;
-              }
-              if (Math.abs(dy_bh) > canvas.height / 2) {
-                dy_bh = dy_bh > 0 ? dy_bh - canvas.height : dy_bh + canvas.height;
-              }
-              const d_bh = dx_bh * dx_bh + dy_bh * dy_bh;
-              if (d_bh >= blackhole_schwarzschild_radius*blackhole_schwarzschild_radius) {
-                const F_bh = blackhole_singularity_fx / Math.sqrt(d_bh);
-                fx += F_bh * dx_bh;
-                fy += F_bh * dy_bh;
-              } else {
-                let side = int(rnd(4))
-                if (side == 1) {
-                  a.x = 0
-                  a.y = int(rnd(height))
-                } else if (side == 2) {
-                  a.x = width
-                  a.y = int(rnd(height))
-                } else if (side == 3) {
-                  a.x = int(rnd(width))
-                  a.y = 0
-                } else {
-                  a.x = int(rnd(width))
-                  a.y = height
-                }
-              }
-            }
-          }
-        }
-      }
+							// Find shortest distance to black hole across toroidal surface
+							if (Math.abs(dx_bh) > canvas.width / 2) {
+								dx_bh = dx_bh > 0 ? dx_bh - canvas.width : dx_bh + canvas.width;
+							}
+							if (Math.abs(dy_bh) > canvas.height / 2) {
+								dy_bh = dy_bh > 0 ? dy_bh - canvas.height : dy_bh + canvas.height;
+							}
+							const d_bh = dx_bh * dx_bh + dy_bh * dy_bh;
+							if (d_bh >= blackhole_schwarzschild_radius * blackhole_schwarzschild_radius) {
+								const F_bh = blackhole_singularity_fx / Math.sqrt(d_bh);
+								fx += F_bh * dx_bh;
+								fy += F_bh * dy_bh;
+							} else {
+								let side = int(rnd(4))
+								if (side == 1) {
+									a.x = 0
+									a.y = int(rnd(height))
+								} else if (side == 2) {
+									a.x = width
+									a.y = int(rnd(height))
+								} else if (side == 3) {
+									a.x = int(rnd(width))
+									a.y = 0
+								} else {
+									a.x = int(rnd(width))
+									a.y = height
+								}
+							}
+						}
+					}
+				}
+			}
 
-      a.vx = (a.vx + fx) * speedK;
-      a.vy = (a.vy + fy) * speedK;
-      a.x += a.vx;
-      a.y += a.vy;
+			a.vx = (a.vx + fx) * speedK;
+			a.vy = (a.vy + fy) * speedK;
+			a.x += a.vx;
+			a.y += a.vy;
 
-      // Toroidal wraparound - no walls, particles wrap around edges
-      if (a.x < 0) {
-        a.x = canvas.width + a.x;
-      }
-      if (a.x >= canvas.width) {
-        a.x = a.x - canvas.width;
-      }
-      if (a.y < 0) {
-        a.y = canvas.height + a.y;
-      }
-      if (a.y >= canvas.height) {
-        a.y = a.y - canvas.height;
-      }
-    };
-  }
+			// Toroidal wraparound - no walls, particles wrap around edges
+			if (a.x < 0) {
+				a.x = canvas.width + a.x;
+			}
+			if (a.x >= canvas.width) {
+				a.x = a.x - canvas.width;
+			}
+			if (a.y < 0) {
+				a.y = canvas.height + a.y;
+			}
+			if (a.y >= canvas.height) {
+				a.y = a.y - canvas.height;
+			}
+		};
+	}
 
-  // Initialize atoms
-  particlesForElemens = Math.floor(totNumOfParticles / numOfElements)
-  for (var i = 0; i < numOfElements; i++) {
-    create(particlesForElemens, i, choosePrimaryColor(i));
-  }
+	// Initialize atoms
+	particlesForElemens = Math.floor(totNumOfParticles / numOfElements)
+	for (var i = 0; i < numOfElements; i++) {
+		create(particlesForElemens, i, choosePrimaryColor(i));
+	}
 
 
-  // Gameloop
-  function update() {
-    if (!isPaused) {
-      applyRules();
-    }
-    m.clearRect(0, 0, canvas.width, canvas.height);
-    draw(0, 0, bgcolor, canvas.width);
-    drawBlackHole(blackhole_x, blackhole_y, "#1a1a1a", blackhole_schwarzschild_radius)
-    for (i = 0; i < atoms.length; i += 1) {
-      draw(atoms[i].x, atoms[i].y, atoms[i].fenotipo, size);
-    }
+	// Gameloop
+	function update() {
+		if (!isPaused) {
+			applyRules();
+		}
+		m.clearRect(0, 0, canvas.width, canvas.height);
+		draw(0, 0, bgcolor, canvas.width);
+		drawBlackHole(blackhole_x, blackhole_y, "#1a1a1a", blackhole_schwarzschild_radius)
+		for (i = 0; i < atoms.length; i += 1) {
+			draw(atoms[i].x, atoms[i].y, atoms[i].fenotipo, size);
+		}
 
-    requestAnimationFrame(update);
-  };
-  update();
+		requestAnimationFrame(update);
+	};
+	update();
 
-  // Initialize controls with current values
-  function initializeControls() {
-    // Initialize rule controls - now handling all 16 controls (4x4 matrix)
-    for (let i = 0; i < numOfElements; i++) {
-      for (let j = 0; j < numOfElements; j++) {
-        const controlId = `rule-${i}-${j}`;
-        const valueId = `rule-${i}-${j}-value`;
-        const slider = document.getElementById(controlId);
-        const valueSpan = document.getElementById(valueId);
+	// Initialize controls with current values
+	function initializeControls() {
+		// Initialize rule controls - now handling all 16 controls (4x4 matrix)
+		for (let i = 0; i < numOfElements; i++) {
+			for (let j = 0; j < numOfElements; j++) {
+				const controlId = `rule-${i}-${j}`;
+				const valueId = `rule-${i}-${j}-value`;
+				const slider = document.getElementById(controlId);
+				const valueSpan = document.getElementById(valueId);
 
-        if (slider && valueSpan) {
-          slider.value = rules[i][j];
-          valueSpan.textContent = rules[i][j].toFixed(2);
+				if (slider && valueSpan) {
+					slider.value = rules[i][j];
+					valueSpan.textContent = rules[i][j].toFixed(2);
 
-          slider.addEventListener('input', function() {
-            rules[i][j] = parseFloat(this.value);
-            valueSpan.textContent = parseFloat(this.value).toFixed(2);
-          });
-        }
-      }
-    }
+					slider.addEventListener('input', function () {
+						rules[i][j] = parseFloat(this.value);
+						valueSpan.textContent = parseFloat(this.value).toFixed(2);
+					});
+				}
+			}
+		}
 
-    // Initialize black hole controls
-    const blackholeRadiusSlider = document.getElementById('blackhole-radius');
-    const blackholeRadiusValue = document.getElementById('blackhole-radius-value');
-    blackholeRadiusSlider.value = blackhole_schwarzschild_radius;
-    blackholeRadiusValue.textContent = blackhole_schwarzschild_radius;
-    blackholeRadiusSlider.addEventListener('input', function() {
-      blackhole_schwarzschild_radius = parseInt(this.value);
-      blackholeRadiusValue.textContent = this.value;
-    });
+		// Initialize black hole controls
+		const blackholeRadiusSlider = document.getElementById('blackhole-radius');
+		const blackholeRadiusValue = document.getElementById('blackhole-radius-value');
+		blackholeRadiusSlider.value = blackhole_schwarzschild_radius;
+		blackholeRadiusValue.textContent = blackhole_schwarzschild_radius;
+		blackholeRadiusSlider.addEventListener('input', function () {
+			blackhole_schwarzschild_radius = parseInt(this.value);
+			blackholeRadiusValue.textContent = this.value;
+		});
 
-    const blackholeForceSlider = document.getElementById('blackhole-force');
-    const blackholeForceValue = document.getElementById('blackhole-force-value');
-    blackholeForceSlider.value = Math.abs(blackhole_singularity_fx);
-    blackholeForceValue.textContent = Math.abs(blackhole_singularity_fx).toFixed(4);
-    blackholeForceSlider.addEventListener('input', function() {
-      blackhole_singularity_fx = -parseFloat(this.value);
-      blackholeForceValue.textContent = parseFloat(this.value).toFixed(4);
-    });
+		const blackholeForceSlider = document.getElementById('blackhole-force');
+		const blackholeForceValue = document.getElementById('blackhole-force-value');
+		blackholeForceSlider.value = Math.abs(blackhole_singularity_fx);
+		blackholeForceValue.textContent = Math.abs(blackhole_singularity_fx).toFixed(4);
+		blackholeForceSlider.addEventListener('input', function () {
+			blackhole_singularity_fx = -parseFloat(this.value);
+			blackholeForceValue.textContent = parseFloat(this.value).toFixed(4);
+		});
 
-    const repulsionForceSlider = document.getElementById('repulsion-force');
-    const repulsionForceValue = document.getElementById('repulsion-force-value');
-    repulsionForceSlider.value = repulsionFx;
-    repulsionForceValue.textContent = repulsionFx.toFixed(2);
-    repulsionForceSlider.addEventListener('input', function() {
-      repulsionFx = parseFloat(this.value);
-      repulsionForceValue.textContent = parseFloat(this.value).toFixed(2);
-    });
+		const repulsionForceSlider = document.getElementById('repulsion-force');
+		const repulsionForceValue = document.getElementById('repulsion-force-value');
+		repulsionForceSlider.value = repulsionFx;
+		repulsionForceValue.textContent = repulsionFx.toFixed(2);
+		repulsionForceSlider.addEventListener('input', function () {
+			repulsionFx = parseFloat(this.value);
+			repulsionForceValue.textContent = parseFloat(this.value).toFixed(2);
+		});
 
-    const speedFactorSlider = document.getElementById('speed-factor');
-    const speedFactorValue = document.getElementById('speed-factor-value');
-    speedFactorSlider.value = speedK;
-    speedFactorValue.textContent = speedK.toFixed(2);
-    speedFactorSlider.addEventListener('input', function() {
-      speedK = parseFloat(this.value);
-      speedFactorValue.textContent = parseFloat(this.value).toFixed(2);
-    });
+		const speedFactorSlider = document.getElementById('speed-factor');
+		const speedFactorValue = document.getElementById('speed-factor-value');
+		speedFactorSlider.value = speedK;
+		speedFactorValue.textContent = speedK.toFixed(2);
+		speedFactorSlider.addEventListener('input', function () {
+			speedK = parseFloat(this.value);
+			speedFactorValue.textContent = parseFloat(this.value).toFixed(2);
+		});
 
-    // Initialize canvas width control
-    const canvasWidthSlider = document.getElementById('canvas-width');
-    const canvasWidthValue = document.getElementById('canvas-width-value');
-    canvasWidthSlider.value = width;
-    canvasWidthValue.textContent = width;
-    canvasWidthSlider.addEventListener('input', function() {
-      const newWidth = parseInt(this.value);
-      canvasWidthValue.textContent = newWidth;
-      width = newWidth;
-      canvas.width = newWidth;
+		// Initialize canvas width control
+		const canvasWidthSlider = document.getElementById('canvas-width');
+		const canvasWidthValue = document.getElementById('canvas-width-value');
+		canvasWidthSlider.value = width;
+		canvasWidthValue.textContent = width;
+		canvasWidthSlider.addEventListener('input', function () {
+			const newWidth = parseInt(this.value);
+			canvasWidthValue.textContent = newWidth;
+			width = newWidth;
+			canvas.width = newWidth;
 
-      // Reposition black hole if needed
-      blackhole_x = Math.min(blackhole_x, width - 50);
-    });
+			// Reposition black hole if needed
+			blackhole_x = Math.min(blackhole_x, width - 50);
+		});
 
-    // Initialize canvas height control
-    const canvasHeightSlider = document.getElementById('canvas-height');
-    const canvasHeightValue = document.getElementById('canvas-height-value');
-    canvasHeightSlider.value = height;
-    canvasHeightValue.textContent = height;
-    canvasHeightSlider.addEventListener('input', function() {
-      const newHeight = parseInt(this.value);
-      canvasHeightValue.textContent = newHeight;
-      height = newHeight;
-      canvas.height = newHeight;
+		// Initialize canvas height control
+		const canvasHeightSlider = document.getElementById('canvas-height');
+		const canvasHeightValue = document.getElementById('canvas-height-value');
+		canvasHeightSlider.value = height;
+		canvasHeightValue.textContent = height;
+		canvasHeightSlider.addEventListener('input', function () {
+			const newHeight = parseInt(this.value);
+			canvasHeightValue.textContent = newHeight;
+			height = newHeight;
+			canvas.height = newHeight;
 
-      // Reposition black hole if needed
-      blackhole_y = Math.min(blackhole_y, height - 50);
-    });
+			// Reposition black hole if needed
+			blackhole_y = Math.min(blackhole_y, height - 50);
+		});
 
-    // Initialize number of particles control
-    const numParticlesSlider = document.getElementById('num-particles');
-    const numParticlesValue = document.getElementById('num-particles-value');
-    numParticlesSlider.value = totNumOfParticles;
-    numParticlesValue.textContent = totNumOfParticles;
-    numParticlesSlider.addEventListener('input', function() {
-      const newNumParticles = parseInt(this.value);
-      numParticlesValue.textContent = newNumParticles;
+		// Initialize number of particles control
+		const numParticlesSlider = document.getElementById('num-particles');
+		const numParticlesValue = document.getElementById('num-particles-value');
+		numParticlesSlider.value = totNumOfParticles;
+		numParticlesValue.textContent = totNumOfParticles;
+		numParticlesSlider.addEventListener('input', function () {
+			const newNumParticles = parseInt(this.value);
+			numParticlesValue.textContent = newNumParticles;
 
-      // Update total number of particles
-      totNumOfParticles = newNumParticles;
+			// Update total number of particles
+			totNumOfParticles = newNumParticles;
 
-      // Clear existing atoms
-      atoms.length = 0;
+			// Clear existing atoms
+			atoms.length = 0;
 
-      // Create new particles with the new count
-      const particlesPerElement = Math.floor(totNumOfParticles / numOfElements);
-      for (let i = 0; i < numOfElements; i++) {
-        create(particlesPerElement, i, choosePrimaryColor(i));
-      }
-    });
+			// Create new particles with the new count
+			const particlesPerElement = Math.floor(totNumOfParticles / numOfElements);
+			for (let i = 0; i < numOfElements; i++) {
+				create(particlesPerElement, i, choosePrimaryColor(i));
+			}
+		});
 
-    // Initialize wandering black hole checkbox
-    const wanderingCheckbox = document.getElementById('wandering-blackhole');
-    wanderingCheckbox.addEventListener('change', function() {
-      wandering_blackhole = this.checked;
-      if (!this.checked) {
-        // Reset black hole velocity when disabled
-        blackhole_vx = 0;
-        blackhole_vy = 0;
-      }
-    });
-  }
+		// Initialize wandering black hole checkbox
+		const wanderingCheckbox = document.getElementById('wandering-blackhole');
+		wanderingCheckbox.addEventListener('change', function () {
+			wandering_blackhole = this.checked;
+			if (!this.checked) {
+				// Reset black hole velocity when disabled
+				blackhole_vx = 0;
+				blackhole_vy = 0;
+			}
+		});
+	}
 
-  // Control buttons
-  document.getElementById('randomize-rules').addEventListener('click', function() {
-    rules = makeRules(numOfElements);
-    initializeControls(); // Update UI to show new values
-  });
+	// Control buttons
+	document.getElementById('randomize-rules').addEventListener('click', function () {
+		rules = makeRules(numOfElements);
+		initializeControls(); // Update UI to show new values
+	});
 
-  document.getElementById('pause-simulation').addEventListener('click', function() {
-    isPaused = !isPaused;
-    this.textContent = isPaused ? 'Resume' : 'Pause';
-    this.className = isPaused ? 'btn-info' : 'btn-info';
-  });
+	document.getElementById('pause-simulation').addEventListener('click', function () {
+		isPaused = !isPaused;
+		this.textContent = isPaused ? 'Resume' : 'Pause';
+		this.className = isPaused ? 'btn-info' : 'btn-info';
+	});
 
-  // Initialize controls after DOM is ready
-  initializeControls();
+	// Initialize controls after DOM is ready
+	initializeControls();
+
+	// World Persistence Logic
+	function getCurrentConfig() {
+		return {
+			rules: rules,
+			totNumOfParticles: totNumOfParticles,
+			width: width,
+			height: height,
+			blackhole_x: blackhole_x,
+			blackhole_y: blackhole_y,
+			blackhole_vx: blackhole_vx,
+			blackhole_vy: blackhole_vy,
+			blackhole_schwarzschild_radius: blackhole_schwarzschild_radius,
+			blackhole_singularity_fx: blackhole_singularity_fx,
+			repulsionFx: repulsionFx,
+			speedK: speedK,
+			wandering_blackhole: wandering_blackhole,
+			numOfElements: numOfElements // Saving this too, though currently constant 4
+		};
+	}
+
+	function applyConfig(config) {
+		if (!config) return;
+
+		// Apply simple values
+		if (config.width) width = config.width;
+		if (config.height) height = config.height;
+		if (config.totNumOfParticles) totNumOfParticles = config.totNumOfParticles;
+		if (config.blackhole_x !== undefined) blackhole_x = config.blackhole_x;
+		if (config.blackhole_y !== undefined) blackhole_y = config.blackhole_y;
+		if (config.blackhole_vx !== undefined) blackhole_vx = config.blackhole_vx;
+		if (config.blackhole_vy !== undefined) blackhole_vy = config.blackhole_vy;
+		if (config.blackhole_schwarzschild_radius !== undefined) blackhole_schwarzschild_radius = config.blackhole_schwarzschild_radius;
+		if (config.blackhole_singularity_fx !== undefined) blackhole_singularity_fx = config.blackhole_singularity_fx;
+		if (config.repulsionFx !== undefined) repulsionFx = config.repulsionFx;
+		if (config.speedK !== undefined) speedK = config.speedK;
+		if (config.wandering_blackhole !== undefined) wandering_blackhole = config.wandering_blackhole;
+
+		// Apply rules
+		if (config.rules) {
+			rules = config.rules;
+		}
+
+		// Update Canvas Size
+		canvas.width = width;
+		canvas.height = height;
+
+		// Re-initialize particles if count changed (or just to be safe to match saved state if we saved positions? No, we don't save positions, so we regenerate)
+		// The requirement is "load world configuration", usually implies rules and parameters, not exact particle positions unless specified.
+		// Given the "randomize rules" button exists, saving "configuration" usually means parameters.
+		// I will regenerate particles based on the loaded count and rules.
+
+		atoms.length = 0;
+		const particlesPerElement = Math.floor(totNumOfParticles / numOfElements);
+		for (let i = 0; i < numOfElements; i++) {
+			create(particlesPerElement, i, choosePrimaryColor(i));
+		}
+
+		// Update UI controls
+		initializeControls();
+
+		// Update checkbox specifically as it might not be handled by initializeControls fully if not triggered
+		const wanderingCheckbox = document.getElementById('wandering-blackhole');
+		if (wanderingCheckbox) wanderingCheckbox.checked = wandering_blackhole;
+	}
+
+	async function saveWorld() {
+		const config = getCurrentConfig();
+		try {
+			const response = await fetch('/api/worlds', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ config })
+			});
+
+			if (response.ok) {
+				fetchWorlds(); // Refresh list
+			} else {
+				console.error('Failed to save world');
+			}
+		} catch (error) {
+			console.error('Error saving world:', error);
+		}
+	}
+
+	async function fetchWorlds() {
+		try {
+			const response = await fetch('/api/worlds');
+			if (response.ok) {
+				const data = await response.json();
+				renderWorldsList(data.worlds);
+			}
+		} catch (error) {
+			console.error('Error fetching worlds:', error);
+		}
+	}
+
+	async function loadWorld(id) {
+		try {
+			const response = await fetch(`/api/worlds/${id}`);
+			if (response.ok) {
+				const data = await response.json();
+				applyConfig(data.config);
+			}
+		} catch (error) {
+			console.error('Error loading world:', error);
+		}
+	}
+
+	function renderWorldsList(worlds) {
+		const listContainer = document.getElementById('worlds-list');
+		listContainer.innerHTML = '';
+
+		worlds.forEach(world => {
+			const item = document.createElement('div');
+			item.className = 'world-item';
+
+			const date = new Date(world.created_at).toLocaleString();
+			item.innerHTML = `
+        <div>World #${world.id}</div>
+        <div class="world-item-date">${date}</div>
+      `;
+
+			item.addEventListener('dblclick', () => {
+				loadWorld(world.id);
+			});
+
+			listContainer.appendChild(item);
+		});
+	}
+
+	document.getElementById('save-world').addEventListener('click', saveWorld);
+
+	// Initial fetch
+	fetchWorlds();
 
 
 </script>
