@@ -56,7 +56,7 @@ app.get('/health', (req, res) => {
 app.use(express.json());
 
 // Save a world
-app.post('http://partlife.tripitak.it/api/worlds', (req, res) => {
+app.post('/api/worlds', (req, res) => {
 	const { config } = req.body;
 	if (!config) {
 		return res.status(400).json({ error: 'Config is required' });
@@ -71,7 +71,7 @@ app.post('http://partlife.tripitak.it/api/worlds', (req, res) => {
 });
 
 // Get all worlds
-app.get('http://partlife.tripitak.it/api/worlds', (req, res) => {
+app.get('/api/worlds', (req, res) => {
 	const sql = `SELECT id, created_at FROM worlds ORDER BY created_at DESC`;
 	db.all(sql, [], (err, rows) => {
 		if (err) {
@@ -82,7 +82,7 @@ app.get('http://partlife.tripitak.it/api/worlds', (req, res) => {
 });
 
 // Get a specific world
-app.get('http://partlife.tripitak.it/api/worlds/:id', (req, res) => {
+app.get('/api/worlds/:id', (req, res) => {
 	const sql = `SELECT config FROM worlds WHERE id = ?`;
 	db.get(sql, [req.params.id], (err, row) => {
 		if (err) {
