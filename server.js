@@ -33,6 +33,7 @@ app.use(helmet({
 	},
 	crossOriginEmbedderPolicy: false,
 	crossOriginOpenerPolicy: false,
+	hsts: false, // Disable HSTS for HTTP-only production
 }));
 
 // Compression middleware
