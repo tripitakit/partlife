@@ -33,3 +33,7 @@ pids
 
 # PM2
 .pm2
+
+# Utility scripts
+verify_persistence.js
+truncate_worlds.js

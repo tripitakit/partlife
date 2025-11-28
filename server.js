@@ -31,6 +31,8 @@ app.use(helmet({
 			imgSrc: ["'self'", "data:", "https:"],
 		},
 	},
+	crossOriginEmbedderPolicy: false,
+	crossOriginOpenerPolicy: false,
 }));
 
 // Compression middleware
