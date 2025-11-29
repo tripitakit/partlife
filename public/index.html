@@ -219,6 +219,12 @@
 				background-color: rgba(255, 255, 255, 0.1);
 			}
 
+			.world-item.active {
+				background-color: rgba(72, 199, 116, 0.3);
+				border-left: 3px solid #48c774;
+				padding-left: 9px;
+			}
+
 			.world-item:last-child {
 				border-bottom: none;
 			}
@@ -489,6 +495,7 @@
 	let blackhole_schwarzschild_radius = 21
 	let blackhole_singularity_fx = -(rnd(0.002) + 0.0005)
 	let isPaused = false;
+	let currentWorldId = null;
 
 	let atoms = [];
 	let rules = makeRules(numOfElements)
@@ -920,6 +927,8 @@
 			});
 
 			if (response.ok) {
+				const data = await response.json();
+				currentWorldId = data.id; // Set the newly saved world as current
 				fetchWorlds(); // Refresh list
 			} else {
 				console.error('Failed to save world');
@@ -929,16 +938,22 @@
 		}
 	}
 
-	async function fetchWorlds() {
+	async function fetchWorldsData() {
 		try {
 			const response = await fetch('/api/worlds');
 			if (response.ok) {
 				const data = await response.json();
-				renderWorldsList(data.worlds);
+				return data.worlds;
 			}
 		} catch (error) {
 			console.error('Error fetching worlds:', error);
 		}
+		return [];
+	}
+
+	async function fetchWorlds() {
+		const worlds = await fetchWorldsData();
+		renderWorldsList(worlds);
 	}
 
 	async function loadWorld(id) {
@@ -947,6 +962,8 @@
 			if (response.ok) {
 				const data = await response.json();
 				applyConfig(data.config);
+				currentWorldId = id; // Set the loaded world as current
+				renderWorldsList(await fetchWorldsData()); // Re-render to update highlighting
 			}
 		} catch (error) {
 			console.error('Error loading world:', error);
@@ -960,6 +977,11 @@
 		worlds.forEach(world => {
 			const item = document.createElement('div');
 			item.className = 'world-item';
+
+			// Highlight the current world
+			if (world.id === currentWorldId) {
+				item.classList.add('active');
+			}
 
 			const date = new Date(world.created_at).toLocaleString();
 			item.innerHTML = `
