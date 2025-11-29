@@ -92,7 +92,7 @@ app.post('/api/worlds', (req, res) => {
 
 // Get all worlds
 app.get('/api/worlds', (req, res) => {
-	const sql = `SELECT id, stars, created_at FROM worlds ORDER BY created_at DESC`;
+	const sql = `SELECT id, stars, created_at FROM worlds ORDER BY stars DESC, id ASC`;
 	db.all(sql, [], (err, rows) => {
 		if (err) {
 			return res.status(500).json({ error: err.message });
