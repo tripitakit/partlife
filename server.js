@@ -18,7 +18,22 @@ const db = new sqlite3.Database('./worlds.db', (err) => {
       config TEXT,
       stars INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
+    )`, (err) => {
+			if (err) {
+				console.error('Error creating table:', err);
+			} else {
+				// Add stars column if it doesn't exist (migration for existing databases)
+				db.run(`ALTER TABLE worlds ADD COLUMN stars INTEGER DEFAULT 0`, (err) => {
+					if (err && err.message.includes('duplicate column')) {
+						console.log('Stars column already exists');
+					} else if (err) {
+						console.error('Error adding stars column:', err.message);
+					} else {
+						console.log('Stars column added successfully');
+					}
+				});
+			}
+		});
 	}
 });
 
