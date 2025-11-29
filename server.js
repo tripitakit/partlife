@@ -16,6 +16,7 @@ const db = new sqlite3.Database('./worlds.db', (err) => {
 		db.run(`CREATE TABLE IF NOT EXISTS worlds (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       config TEXT,
+      stars INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`);
 	}
@@ -76,7 +77,7 @@ app.post('/api/worlds', (req, res) => {
 
 // Get all worlds
 app.get('/api/worlds', (req, res) => {
-	const sql = `SELECT id, created_at FROM worlds ORDER BY created_at DESC`;
+	const sql = `SELECT id, stars, created_at FROM worlds ORDER BY created_at DESC`;
 	db.all(sql, [], (err, rows) => {
 		if (err) {
 			return res.status(500).json({ error: err.message });
@@ -96,6 +97,26 @@ app.get('/api/worlds/:id', (req, res) => {
 			return res.status(404).json({ error: 'World not found' });
 		}
 		res.json({ config: JSON.parse(row.config) });
+	});
+});
+
+// Increment stars for a world
+app.post('/api/worlds/:id/star', (req, res) => {
+	const sql = `UPDATE worlds SET stars = stars + 1 WHERE id = ?`;
+	db.run(sql, [req.params.id], function (err) {
+		if (err) {
+			return res.status(500).json({ error: err.message });
+		}
+		if (this.changes === 0) {
+			return res.status(404).json({ error: 'World not found' });
+		}
+		// Get updated stars count
+		db.get(`SELECT stars FROM worlds WHERE id = ?`, [req.params.id], (err, row) => {
+			if (err) {
+				return res.status(500).json({ error: err.message });
+			}
+			res.json({ stars: row.stars, message: 'Star added successfully' });
+		});
 	});
 });
 

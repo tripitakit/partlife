@@ -151,6 +151,18 @@
 				font-weight: bold;
 			}
 
+			.btn-star {
+				background-color: #ffd700;
+				color: #333;
+				font-size: 1.2rem;
+				padding: 8px 16px;
+			}
+
+			.btn-star:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+
 			.btn-warning {
 				background-color: #ffdd57;
 				color: #333;
@@ -450,6 +462,7 @@
 				<div class="buttons">
 					<button id="randomize-rules" class="btn-warning">Randomize Rules</button>
 					<button id="pause-simulation" class="btn-info">Pause</button>
+					<button id="star-world" class="btn-star" disabled title="Load a world to star it">⭐</button>
 				</div>
 			</div>
 
@@ -847,6 +860,13 @@
 		this.className = isPaused ? 'btn-info' : 'btn-info';
 	});
 
+	// Star world button
+	document.getElementById('star-world').addEventListener('click', async function () {
+		if (currentWorldId) {
+			await starWorld(currentWorldId);
+		}
+	});
+
 	// Initialize controls after DOM is ready
 	initializeControls();
 
@@ -929,6 +949,7 @@
 			if (response.ok) {
 				const data = await response.json();
 				currentWorldId = data.id; // Set the newly saved world as current
+				document.getElementById('star-world').disabled = false; // Enable star button
 				fetchWorlds(); // Refresh list
 			} else {
 				console.error('Failed to save world');
@@ -963,10 +984,32 @@
 				const data = await response.json();
 				applyConfig(data.config);
 				currentWorldId = id; // Set the loaded world as current
+				document.getElementById('star-world').disabled = false; // Enable star button
 				renderWorldsList(await fetchWorldsData()); // Re-render to update highlighting
 			}
 		} catch (error) {
 			console.error('Error loading world:', error);
+		}
+	}
+
+	async function starWorld(id) {
+		try {
+			const response = await fetch(`/api/worlds/${id}/star`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				console.log(`World #${id} now has ${data.stars} stars!`);
+				fetchWorlds(); // Refresh list to show updated stars
+			} else {
+				console.error('Failed to star world');
+			}
+		} catch (error) {
+			console.error('Error starring world:', error);
 		}
 	}
 
@@ -984,8 +1027,9 @@
 			}
 
 			const date = new Date(world.created_at).toLocaleString();
+			const stars = world.stars || 0;
 			item.innerHTML = `
-        <div>World #${world.id}</div>
+        <div>World #${world.id} ${stars > 0 ? '⭐ ' + stars : ''}</div>
         <div class="world-item-date">${date}</div>
       `;
 
