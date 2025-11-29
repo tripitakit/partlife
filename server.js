@@ -29,6 +29,7 @@ app.use(helmet({
 			styleSrc: ["'self'", "'unsafe-inline'"],
 			scriptSrc: ["'self'", "'unsafe-inline'"],
 			imgSrc: ["'self'", "data:", "https:"],
+			upgradeInsecureRequests: null, // Disable upgrade-insecure-requests for HTTP-only
 		},
 	},
 	crossOriginEmbedderPolicy: false,
@@ -57,8 +58,11 @@ app.use(express.json());
 
 // Save a world
 app.post('/api/worlds', (req, res) => {
+	console.log('POST /api/worlds - Request received');
+	console.log('Request body:', req.body);
 	const { config } = req.body;
 	if (!config) {
+		console.log('Error: Config is missing');
 		return res.status(400).json({ error: 'Config is required' });
 	}
 	const sql = `INSERT INTO worlds (config) VALUES (?)`;
