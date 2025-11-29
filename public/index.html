@@ -152,15 +152,22 @@
 			}
 
 			.btn-star {
-				background-color: #ffd700;
-				color: #333;
-				font-size: 1.2rem;
-				padding: 8px 16px;
+				background-color: transparent;
+				color: #ffd700;
+				font-size: 1.5rem;
+				padding: 8px 12px;
+				border: 2px solid #ffd700;
+			}
+
+			.btn-star:hover:not(:disabled) {
+				background-color: rgba(255, 215, 0, 0.2);
 			}
 
 			.btn-star:disabled {
-				opacity: 0.5;
+				opacity: 0.3;
 				cursor: not-allowed;
+				border-color: #666;
+				color: #666;
 			}
 
 			.btn-warning {
